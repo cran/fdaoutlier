@@ -1,4 +1,4 @@
-3768ea10fdc845a45957cbc0c54b5f01 *DESCRIPTION
+5c5f161c03804ee05280fac3f7decedd *DESCRIPTION
 3e95b53cadbda0bb25c294d41b3d37cc *NAMESPACE
 88b9355502ebea323e19f7c54c780d3f *NEWS.md
 484edf96b3f2590b2e940615f56c3179 *R/band_depth.R
@@ -14,7 +14,7 @@ baa9bb7231cfef1fa4aca3db40f13b64 *R/functional_boxplot.R
 ab473dec77041f70f17299a693710356 *R/modified_band_depth.R
 e6e544752df35c4496a4a7f6b027d663 *R/msplot.R
 eeae3163d9a76500c1e62bd80136c300 *R/multivariate_projection_depth.R
-9d0c5b5f49b198a857f1cf196447ae18 *R/sequential_transformations.R
+2cb259b2d2be3b3c54b1db1c4c921110 *R/sequential_transformations.R
 dfaa013f6ca073baa86c7a64d5664bad *R/sysdata.rda
 e7d60c64e1301f70b345eea0bdf90d5b *R/total_variation_depth.R
 1693bc1b70b8e555299fd078ab434be7 *R/tvdmss.R
@@ -33,7 +33,7 @@ f56a319a68a5a00622ba41ea1d39b9b6 *man/extreme_rank_length.Rd
 dd838d17d8e77d47777e6c8e9fe98d76 *man/modified_band_depth.Rd
 e5d8aad39bfe3f7009c4c94cdc07129a *man/msplot.Rd
 8ff1aa19391bdd8d7730e5ceb5e2f739 *man/projection_depth.Rd
-fe758c4368eddb92b1d002b498d0ae00 *man/seq_transform.Rd
+7b45256261b50eb57f33311ea69300e0 *man/seq_transform.Rd
 e0e9aa6d8342eee422070edbab2d1eda *man/sim_data1.Rd
 da539c4b07137357d3e828b1fcd9ca7a *man/spanish_weather.Rd
 92a3b238784dfd6687c40e532e45dce7 *man/total_variation_depth.Rd
@@ -41,7 +41,7 @@ da539c4b07137357d3e828b1fcd9ca7a *man/spanish_weather.Rd
 35328917d68ee37cea756bca39fcde76 *src/extreme_rank_call.cpp
 d0661edaf19e6d62e7efc81c75c9ed4c *src/init.c
 ccf0734b90feead69dc87f41e8dd5b90 *src/jumpstart.cpp
-9d6e72a6a25e5f65400cee7187b86370 *src/jumpstart.h
+efbaeb7b762b5c8b3358c7d9af28aefd *src/jumpstart.h
 7334b23ae775b31a962b0c45405df28b *src/projection_depth_call.cpp
 da9dc645b8c9ede8f3df288d6cf3c762 *src/tvd_core_call.cpp
 47c1258284a5ea045954f82a56da06e9 *tests/reference_files/ref_dirout_dirout_multiv.rda
