@@ -2,15 +2,16 @@
 #'
 #'
 #'Compute the directional outlyingness of a univariate or multivariate functional data
-#'based on Dai and Genton (2019) \href{https://doi.org/10.1016/j.csda.2018.03.017}{<doi:10.1016/j.csda.2018.03.017>}
-#'and Dai and Genton (2018) \href{https://doi.org/10.1080/10618600.2018.1473781}{<doi:10.1080/10618600.2018.1473781>}.
+#'based on Dai and Genton (2019) \doi{10.1016/j.csda.2018.03.017}
+#'and Dai and Genton (2018) \doi{10.1080/10618600.2018.1473781}.
 #'
-#'@param data A matrix (or data frame) for univariate functional data (of size \code{n} observations by \code{p} domain
+#'@param dts A matrix (or data frame) for univariate functional data (of size \code{n} observations by \code{p} domain
 #'  points) or a 3-dimensional array for multivariate functional data (of size \code{n}
 #'  observations by \code{p} domain points by \code{d} dimension).
 #'
 #'@param data_depth The method for computing the depth. The random projection depth is
-#'  always used as suggested in Dai and Genton (2018) \href{https://doi.org/10.1080/10618600.2018.1473781}{<doi:10.1080/10618600.2018.1473781>}. Support more depth methods will be added.
+#'  always used as suggested in Dai and Genton (2018) \doi{10.1080/10618600.2018.1473781}.
+#'  Support for more depth methods will be added.
 #'
 #'@param n_projections The number of directions for computing random projection depth. By default,
 #'   200 random directions are generated from a scaled uniform distribution between -1 and 1.
@@ -27,24 +28,26 @@
 #'
 #'@details
 #'
-#'The directional outlyingness, as defined in Dai and Genton (2019) \href{https://doi.org/10.1016/j.csda.2018.03.017}{<doi:10.1016/j.csda.2018.03.017>} is
+#'The directional outlyingness, as defined in Dai and Genton (2019)
+#'\doi{10.1016/j.csda.2018.03.017} is
 #'\deqn{O(Y, F_Y) = (1/d(Y, F_Y) - 1).v} where \eqn{d} is a depth notion, and \eqn{v} is
 #'the unit vector pointing from the median of \eqn{F_Y} to \eqn{Y}. For univariate and
 #'multivariate functional data, the projection depth is always used as suggested by
-#'\href{https://doi.org/10.1016/j.csda.2018.03.017}{Dai and Genton (2019)}.
+#'Dai and Genton (2019) \doi{10.1016/j.csda.2018.03.017}.
 #'
 #'
-#'@return Returns a list containing: \item{mean_outlyingness}{an \code{n x d} matrix of the mean
+#'@return Returns a list containing:
+#' \item{mean_outlyingness}{an \code{n x d} matrix of the mean
 #'  of directional outlyingness.} \item{var_outlyingness}{ a vector of length n containing
-#'  the variation of directional outlyingness.} \item{ms_matrix}{ if
-#'  \code{return_distance} = T, an \code{n x (d+1)} matrix whose columns are the mean and
-#'  variation of directional outlyingness.} \item{distance}{ if \code{return_distance} = T,
-#'  a vector of distance computed from the \code{ms_matrix} using a robust estimate of
-#'  the mean and covariance matrix.} \item{mcd_obj}{ if \code{return_distance} = T, a list
-#'  containing the robust (minimum covariance determinant) estimate of the mean and
-#'  covariance of the \code{ms_matrix}.} \item{dirout_matrix}{ if \code{return_dir_matrix}
-#'  = T, an n x p (or n x p x d) matrix (or array) containing the directional outlyingness values for
-#'  the univariate (or multivariate) functional \code{data}.}
+#'  the variation of directional outlyingness.}
+#'  \item{ms_matrix}{ if\code{return_distance} = T, an \code{n x (d+1)} matrix whose columns are the mean and
+#'  variation of directional outlyingness.}
+#'  \item{distance}{ if \code{return_distance} = T, a vector of distance computed from the
+#'  \code{ms_matrix} using a robust estimate of the mean and covariance matrix.}
+#'  \item{mcd_obj}{ if \code{return_distance} = T, a list containing the robust
+#'  (minimum covariance determinant) estimate of the mean and covariance of the \code{ms_matrix}.}
+#'  \item{dirout_matrix}{ if \code{return_dir_matrix} = T, an n x p (or n x p x d) matrix (or array)
+#'   containing the directional outlyingness values for the univariate (or multivariate) functional \code{dts}.}
 #'@author Oluwasegun Taiwo Ojo.
 #'
 #'@references Dai, W., and Genton, M. G. (2018). Multivariate functional data
@@ -62,27 +65,27 @@
 #'
 #' @examples
 #' # univariate magnitude model in Dai and Genton (2018).
-#' data(sim_data1)
-#' dirout_object <- dir_out(data = sim_data1$data, return_distance = TRUE)
+#' dt4 <- simulation_model4()
+#' dirout_object <- dir_out(dts = dt4$data, return_distance = TRUE)
 #'@export
 #'@importFrom stats mad mahalanobis median var
 #'@importFrom MASS cov.rob
 
-dir_out <- function(data, data_depth = "random_projections",
+dir_out <- function(dts, data_depth = "random_projections",
                     n_projections = 200L, seed = NULL,
                     return_distance = TRUE,
                     return_dir_matrix = FALSE){
   # library used: Mass::cov_rob,
-  data_dim  <-  dim(data)
+  data_dim  <-  dim(dts)
   #data_depth <- match.arg(data_depth)
-  if(is.data.frame(data)){
-    data <- as.matrix(data)
+  if(is.data.frame(dts)){
+    dts <- as.matrix(dts)
   }
-  if(!is.array(data))
-    stop("Argument \"data\" must be a dataframe, a matrix or 3-dimensional array.")
+  if(!is.array(dts))
+    stop("Argument \"dts\" must be a dataframe, a matrix or 3-dimensional array.")
 
-  if (any(!is.finite(data)))
-    stop("Missing or infinite values are not allowed in argument \"data\".")
+  if (any(!is.finite(dts)))
+    stop("Missing or infinite values are not allowed in argument \"dts\".")
 
   if(data_dim[1] < 3){
     stop("n must be greater than 3.")
@@ -94,10 +97,10 @@ dir_out <- function(data, data_depth = "random_projections",
     #mad_vec <- apply(dt, 2, mad)
     #dir_out_matrix <- sweep(sweep(dt, 2, median_vec), 2, mad_vec, FUN = "/")
     ################################################
-    data  <- t(data)
-    median_vec <- apply(data, 1, median)
-    mad_vec <- apply(data, 1, mad)
-    dir_out_matrix <- t((data-median_vec)/(mad_vec)) # dir_out_matrix <- (data-median_vec)/(mad_vec)
+    dts  <- t(dts)
+    median_vec <- apply(dts, 1, median)
+    mad_vec <- apply(dts, 1, mad)
+    dir_out_matrix <- t((dts-median_vec)/(mad_vec)) # dir_out_matrix <- (dts-median_vec)/(mad_vec)
     mean_dir_out <- apply(dir_out_matrix, 1, mean, na.rm = T) # colMeans(dir_out_matrix, na.rm = T)
     var_dir_out <- apply(dir_out_matrix, 1, var, na.rm = T) # apply(dir_out_matrix, 2, var, na.rm = T)
 
@@ -114,9 +117,9 @@ dir_out <- function(data, data_depth = "random_projections",
     d <- data_dim[3]
     #dir_out_matrix2  <- array(0, dim = c(n, p, d))  # to cpp
     if(data_depth == "random_projections"){
-      dir_out_matrix <- apply(data, 2, function(x){
+      dir_out_matrix <- apply(dts, 2, function(x){
         outlyingness <- (1/projection_depth(x, n_projections = n_projections, seed = seed)) - 1
-        median_vec  <-  x[order(outlyingness)[1], ] # data[order(outlyingness)[1],j,]
+        median_vec  <-  x[order(outlyingness)[1], ] # dts[order(outlyingness)[1],j,]
         median_dev <- sweep(x, 2, median_vec )
         spatial_sign <- sqrt(rowSums((median_dev)^2))
         spatial_sign <- median_dev/spatial_sign
@@ -128,69 +131,11 @@ dir_out <- function(data, data_depth = "random_projections",
       #dir_out_matrix <- aperm(dir_out_matrix, c(2, 1, 3))
       dir_out_matrix <- aperm(`dim<-`(t(dir_out_matrix), c(p, n, d)), c(2, 1, 3))
 
-    } else if(data_depth == "random_projections2") {
-      #stop("support for mahalanobis depth not yet added")
-      dir_out_matrix  <- array(0, dim = c(n, p, d))  # to cpp
-      for (j in 1:p) {
-        outlyingness  <- (1/projection_depth(data[,j,], n_projections = 500, seed = 20)) - 1
-        median_vec  <-  data[order(outlyingness)[1],j,]
-        median_dev <- sweep(data[,j,], 2, median_vec ) #t(data[,j,])-median_obs
-        spatial_sign <- sqrt(rowSums((median_dev)^2)) #sqrt(rowSums((median_dev)^2))
-        spatial_sign <- median_dev/spatial_sign
-        spatial_sign[!is.finite(spatial_sign[,1]), ] <- 0 # check which row has an nan or infinite
-        dir_out_matrix[,j,] <- spatial_sign * outlyingness
-      }
-    } else if(data_depth == "mahalanobis") {
-      cat("support for mahalanobis depth not yet added")
-      # for (j in 1:p) {
-      #   outlyingness  <- (1/fda.usc::mdepth.MhD(data[,j,])$dep) - 1
-      #   median_vec  <-  data[order(outlyingness)[1],j,]
-      #   median_dev <- sweep(data[,j,], 2, median_vec ) #t(data[,j,])-median_obs
-      #   spatial_sign <- rowSums((median_dev)^2)^(1/2) #sqrt(rowSums((median_dev)^2))
-      #   spatial_sign <- median_dev/spatial_sign
-      #   spatial_sign[!is.finite(spatial_sign[,1]), ] <- 0 # check which row has an nan or infinite
-      #   dir_out_matrix[,j,] <- spatial_sign * outlyingness
-      # }
-    } else if (data_depth == "simplicial"){
-      cat("support for simplicial depth not yet added")
-      # for (j in 1:p) {
-      #   outlyingness  <- (1/fda.usc::mdepth.SD(data[,j,])$dep) - 1
-      #   median_vec  <-  data[order(outlyingness)[1],j,]
-      #   median_dev <- sweep(data[,j,], 2, median_vec ) #t(data[,j,])-median_obs
-      #   spatial_sign <- rowSums((median_dev)^2)^(1/2) #sqrt(rowSums((median_dev)^2))
-      #   spatial_sign <- median_dev/spatial_sign
-      #   spatial_sign[!is.finite(spatial_sign[,1]), ] <- 0 # check which row has an nan or infinite
-      #   dir_out_matrix[,j,] <- spatial_sign * outlyingness
-      # }
-    } else if(data_depth == "half_space" ) {
-      stop("half space depth not yet added")
-      # for (j in 1:p) {
-      #   outlyingness  <- (1/fda.usc::mdepth.HS(data[,j,])$dep) - 1
-      #   median_vec  <-  data[order(outlyingness)[1],j,]
-      #   median_dev <- sweep(data[,j,], 2, median_vec ) #t(data[,j,])-median_obs
-      #   spatial_sign <- rowSums((median_dev)^2)^(1/2) #sqrt(rowSums((median_dev)^2))
-      #   spatial_sign <- median_dev/spatial_sign
-      #   spatial_sign[!is.finite(spatial_sign[,1]), ] <- 0 # check which row has an nan or infinite
-      #   dir_out_matrix[,j,] <- spatial_sign * outlyingness
-      # }
     } else {
-      stop("depth not suported")
+      stop("depth method not supported.")
     }
     mean_dir_out  <- apply(dir_out_matrix, c(1,3), mean, na.rm = T)
     var_dir_out <- (apply(dir_out_matrix^2, 1, sum, na.rm = T)/p) - rowSums(mean_dir_out^2, na.rm = T)
-    #########################################################################################
-    #Dirout_dev <- array(0, dim = c(n,p,d))
-    ##
-    #for (i in 1:d) {
-    #  Dirout_dev[,,i] <- dir_out_matrix[, , i] - mean_dir_out[,i]
-    #}
-    #Dirout_dev_norm <- matrix(0, n, p)
-    #for (j in 1:p) {
-    #  Dirout_dev_norm[,j] <- rowSums(Dirout_dev[,j,]^2)
-    #}
-    #var_out_test <- apply(Dirout_dev_norm, 1, FUN=function(y) mean(y,na.rm=TRUE))
-    ########################################################################################
-
     if (return_distance){
       ms_matrix <- (cbind(mean_dir_out, var_dir_out))
       mcd_obj  <- MASS::cov.rob(ms_matrix, method = "mcd", nsamp = "best")

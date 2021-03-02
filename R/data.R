@@ -38,11 +38,11 @@
 #'
 #' @details
 #' This is a stripped down version of the popular \code{aemet} spanish weather data available in
-#' the \code{fda.usc}\href{http://dx.doi.org/10.18637/jss.v051.i04}{<doi:10.18637/jss.v051.i04>} package.
+#' the \code{fda.usc} \doi{10.18637/jss.v051.i04} package.
 #' See the documentation of \code{fda.usc} for more details about data.
 #'
 #' @source
-#' Data obtained from the \code{fda.usc}\href{http://dx.doi.org/10.18637/jss.v051.i04}{<doi:10.18637/jss.v051.i04>} package.
+#' Data obtained from the \code{fda.usc} \doi{10.18637/jss.v051.i04} package.
 #'
 #' @keywords datasets
 #' @examples
@@ -53,44 +53,34 @@
 #'
 "spanish_weather"
 
-
-#' Simulated functional data from a simple magnitude model
+#' World Population Data by Countries
 #'
 #'
-#' @description A simulated dataset containing 100 functional observation observed on 50 domain points.
-#' Data was simulated from a simple magnitude outlier model with main model :
-#'\deqn{X(t) = 4t + e(t)}
-#'and contamination model:
-#'\deqn{X(t) = 4t + 8k + e(t)}
-#'where \eqn{t \in [0,1]}, and  \eqn{e(t)} is a Gaussian process with zero mean and covariance function
-#' \deqn{\gamma(s,t) = exp{-|t-s|}}
-#' and \eqn{k \in [-1, 1]} with \eqn{P(k = -1) = P(k = 1) = 0.5}.
+#' @description This is the world population data, revision 2010, by countries used in the paper
+#' Nagy et al. (2016) \doi{10.1080/10618600.2017.1336445} and Dai et al. (2020)
+#' \doi{10.1016/j.csda.2020.106960}. It contains population (both sexes) of countries
+#' as of July 1 in the years 1950 - 2010. The data have been pre-processed as described
+#' in Nagy et al. (2016) and hence contains only the 105 countries with population
+#' in the range of one million and fifteen million on July 1, 1980.
 #'
-#' There are 90 non-outliers and 10 magnitude outliers.
 #'
-#' @name sim_data1
+#' @name world_population
 #'
 #' @docType data
 #'
-#' @format A list containing 2 elements:
-#' \itemize{
-#'   \item \code{data:}  A matrix of 100 by 50 containing 100 functional observed on 50 domain points.
-#'    \item \code{true_outlier:} An integer vector containing indices which indicate observations in \code{sim_data1$data}
-#'    that are magnitude outliers.
-#'  }
+#' @format A matrix of size 105 rows by 61 columns.
+#'
 #'
 #' @details
 #' Data included for illustration and testing purposes.
 #'
 #' @source
-#' Simulation
+#' Data originally available in the \code{depth.fd} package.
 #'
-#' @author
-#' Oluwasegun Ojo
 #'
 #' @keywords datasets
 #' @examples
-#' data(sim_data1)
-#' str(sim_data1)
+#' data(world_population)
+#' str(world_population)
 #'
-"sim_data1"
+"world_population"

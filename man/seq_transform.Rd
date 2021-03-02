@@ -5,7 +5,7 @@
 \title{Find and classify outliers functional outliers using Sequential Transformation}
 \usage{
 seq_transform(
-  dt,
+  dts,
   sequence = c("T0", "T1", "T2"),
   depth_method = c("mbd", "tvd", "extremal", "dirout", "linfinity", "bd", "erld", "dq"),
   save_data = FALSE,
@@ -18,11 +18,11 @@ seq_transform(
 )
 }
 \arguments{
-\item{dt}{A matrix for univariate functional data (of size \code{n} observations by \code{p} domain
+\item{dts}{A matrix for univariate functional data (of size \code{n} observations by \code{p} domain
 points) or a 3-dimensional array for multivariate functional data (of size \code{n}
 observations by \code{p} domain points by \code{d} dimension). Only the outlyingness transformation ("O(X)(t)")
 supports multivariate functional data so the sequence of transformation must always start with outlyingness ("O(X)(t)")
-whenever a multivariate functional data is parsed to \code{dt}.}
+whenever a multivariate functional data is parsed to \code{dts}.}
 
 \item{sequence}{A character vector usually of length between 1 and 6 containing any of the strings: \code{"T0", "D0", "T1", "T2",
 "D1", "D2"} and \code{"O"} (in any order). These sequence of strings specifies the sequence of transformations to be applied
@@ -73,7 +73,7 @@ of upper and lower quantiles. Defaults to \code{c(0.025, 0.975)} for the upper a
 See \link{directional_quantile} for details.}
 
 \item{n_projections}{An integer indicating the number of random projections to use in computing the point-wise outlyingness if a 3-d array
-is specified in \code{dt} i.e. (multivariate functional data), and the transformation \code{"O"} is part of the sequence of transformations
+is specified in \code{dts} i.e. (multivariate functional data), and the transformation \code{"O"} is part of the sequence of transformations
 parsed to \code{sequence}. Defaults to 200L.}
 
 \item{seed}{The random seed to set when generating the random directions in the computation of the point-wise outlyingness. Defaults to NULL.
@@ -89,22 +89,25 @@ transformation. The names of the elements of this list are the sequence strings 
  \code{save_data = FALSE}).}
 }
 \description{
-This method finds and classify outliers using sequential transformations proposed in Algorithm 1 of
-Dai et al. (2020)\href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>}.
-A sequence of transformations are applied to the functional data and after each transformation, a functional
-boxplot is applied on the transformed data and outliers flagged by the functional data are noted. A number of
-transformations mentioned in Dai et al. (2020)\href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>}
-are supported including vertical alignment ("T1(X)(t)"), normalization ("T2(X)(t)"),
-one order of differencing ("D1(X)(t)" and "D2(X)(t)") and point-wise outlyingness data ("O(X)(t)"). The feature alignment
-transformation based on warping/curve registration is not yet supported.
+This method finds and classify outliers using sequential transformations
+proposed in Algorithm 1 of Dai et al. (2020) \doi{10.1016/j.csda.2020.106960}.
+A sequence of transformations are applied to the functional data and after each
+transformation, a functional boxplot is applied on the transformed data and outliers
+flagged by the functional data are noted. A number of transformations mentioned in
+Dai et al. (2020) \doi{10.1016/j.csda.2020.106960} are supported including vertical
+alignment ("T1(X)(t)"), normalization ("T2(X)(t)"), one order of differencing
+("D1(X)(t)" and "D2(X)(t)") and point-wise outlyingness data ("O(X)(t)").
+The feature alignment transformation based on warping/curve registration is not yet
+supported.
 }
 \details{
-This function implements outlier detection using sequential transformations described in Algorithm 1 of
-Dai et al. (2020) \href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>}.
-A sequence of transformations are applied consecutively with the functional boxplot applied on the transformed data after
-each transformation. The following example sequences (and their meaning) suggested in
-Dai et al. (2020) \href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>} can be parsed to
-argument \code{sequence}.
+This function implements outlier detection using sequential transformations
+described in Algorithm 1 of Dai et al. (2020) \doi{10.1016/j.csda.2020.106960}.
+A sequence of transformations are applied consecutively with the functional
+boxplot applied on the transformed data after each transformation. The following
+example sequences (and their meaning) suggested in Dai et al. (2020)
+\doi{10.1016/j.csda.2020.106960} can be parsed to argument \code{sequence}.
+
 \describe{
   \item{\code{"T0"}}{Apply functional boxplot on raw data (no transformation is applied).}
    \item{\code{c("T0", "T1", "D1")}}{Apply functional boxplot on raw data, then apply vertical alignment on data followed by applying
@@ -120,7 +123,7 @@ argument \code{sequence}.
    "one_sided_right" extreme rank length depth) in the functional boxplot used on the data of point-wise outlyingness. This is because only
    large values should be considered extreme in the data of the point-wise outlyingness.}
  }
-For multivariate functional data (when a 3-d array is supplied to \code{dt}), the sequence of transformation must always begin with \code{"O"}
+For multivariate functional data (when a 3-d array is supplied to \code{dts}), the sequence of transformation must always begin with \code{"O"}
 so that the multivariate data can be replaced with the univariate data of point-wise outlyingness which the functional boxplot can subsequently process
 because the \code{\link{functional_boxplot}} function only supports univariate functional data.
 
@@ -131,18 +134,20 @@ See examples for more.
 }
 \examples{
 # same as running a functional boxplot
-seqobj <- seq_transform(sim_data1$data, sequence = "T0", depth_method = "mbd")
+dt1 <- simulation_model1()
+seqobj <- seq_transform(dt1$data, sequence = "T0", depth_method = "mbd")
 seqobj$outliers$T0
-functional_boxplot(sim_data1$data, depth_method = "mbd")$outliers
+functional_boxplot(dt1$data, depth_method = "mbd")$outliers
 
 # more sequences
-seqobj <- seq_transform(sim_data1$data, sequence = c("T0", "D1", "D2"), depth_method = "mbd")
+dt4 <- simulation_model4()
+seqobj <- seq_transform(dt4$data, sequence = c("T0", "D1", "D2"), depth_method = "mbd")
 seqobj$outliers$T0 # outliers found in raw data
 seqobj$outliers$D1 # outliers found after differencing data the first time
 seqobj$outliers$D2 # outliers found after differencing the data the second time
 
 # saving transformed data
-seqobj <- seq_transform(sim_data1$data, sequence = c("T0", "D1", "D2"),
+seqobj <- seq_transform(dt4$data, sequence = c("T0", "D1", "D2"),
  depth_method = "mbd", save_data = TRUE)
 seqobj$outliers$T0 # outliers found in raw data
 head(seqobj$transformed_data$T0)  # the raw data
@@ -150,7 +155,7 @@ head(seqobj$transformed_data$D1) # the first order differenced data
 head(seqobj$transformed_data$D2) # the 2nd order differenced data
 
 # double transforms e.g. c("T0", "D1", "D1")
-seqobj <- seq_transform(sim_data1$data, sequence = c("T0", "D1", "D1"),
+seqobj <- seq_transform(dt4$data, sequence = c("T0", "D1", "D1"),
  depth_method = "mbd", save_data = TRUE) # throws warning
 seqobj$outliers$T0 # outliers found in raw data
 seqobj$outliers$D1_1 #found after differencing data the first time
@@ -160,9 +165,9 @@ head(seqobj$transformed_data$D1_1) # the first order differenced data
 head(seqobj$transformed_data$D1_2) # the 2nd order differenced data
 
 # multivariate data
-dtm <- array(0, dim = c(100, 50, 2))
-dtm[,,1] <- sim_data1$data
-dtm[,,2] <- sim_data1$data
+dtm <- array(0, dim = c(dim(dt1$data), 2))
+dtm[,,1] <- dt1$data
+dtm[,,2] <- dt1$data
 seqobj <- seq_transform(dtm, sequence = "O", depth_method = "erld",
  erld_type = "one_sided_right", save_data = TRUE)
 seqobj$outliers$O # multivariate outliers

@@ -4,29 +4,29 @@
 \alias{extremal_depth}
 \title{Compute extremal depth for functional data}
 \usage{
-extremal_depth(dt)
+extremal_depth(dts)
 }
 \arguments{
-\item{dt}{A numeric matrix or dataframe of size \eqn{n} observations/curves by \eqn{p} domain/evaluation
+\item{dts}{A numeric matrix or dataframe of size \eqn{n} observations/curves by \eqn{p} domain/evaluation
 points.}
 }
 \value{
-A vector containing the extremal depths of the rows of \code{dt}.
+A vector containing the extremal depths of the rows of \code{dts}.
 }
 \description{
 Compute extremal depth for functional data
 }
 \details{
-This function computes the extremal depth a univariate functional data. The extremal depth of a function
+This function computes the extremal depth of a univariate functional data. The extremal depth of a function
 \eqn{g} with respect to a set of function \eqn{S} denoted by \eqn{ED(g, S)} is the proportion
 of functions in \eqn{S} that is more extreme than \eqn{g}. The functions are ordered using depths cumulative
 distribution functions (d-CDFs). Extremal depth like the name implies is based on extreme outlyingness and it
 penalizes functions that are outliers even for a small part of the domain. Proposed/mentioned in
-Narisetty and Nair (2016)\href{https://doi.org/10.1080/01621459.2015.1110033}{<doi:10.1080/01621459.2015.1110033>}.
+Narisetty and Nair (2016) \doi{10.1080/01621459.2015.1110033}.
 }
 \examples{
-data(sim_data1)
-ex_depths <- extremal_depth(sim_data1$data)
+dt3 <- simulation_model3()
+ex_depths <- extremal_depth(dts = dt3$data)
 # order functions from deepest to most outlying
 order(ex_depths, decreasing = TRUE)
 }

@@ -14,11 +14,13 @@ A numeric vector of size \code{nrow(dt)} containing the band depth values of eac
 }
 \description{
 The L-infinity depth is a simple generalization of the \eqn{L^p} multivariate depth to
-functional data proposed in Long and Huang (2015) \href{https://arxiv.org/abs/1506.01332}{<arxiv:arXiv:1506.01332} and also
-used in Dai et al. (2020)\href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>}.
+functional data proposed in Long and Huang (2015)
+ \href{https://arxiv.org/abs/1506.01332}{<arXiv:1506.01332} and also
+used in Dai et al. (2020) \doi{10.1016/j.csda.2020.106960}.
 }
 \examples{
-linf <- linfinity_depth(sim_data1$data)
+dt1 <- simulation_model1()
+linf <- linfinity_depth(dt1$data)
 
 }
 \references{

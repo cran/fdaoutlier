@@ -5,17 +5,17 @@
 \title{Compute the Extreme Rank Length Depth.}
 \usage{
 extreme_rank_length(
-  dt,
+  dts,
   type = c("two_sided", "one_sided_left", "one_sided_right")
 )
 }
 \arguments{
-\item{dt}{A matrix or data frame of size \eqn{n} observations/curves by \eqn{p} domain/evaluation points.}
+\item{dts}{A matrix or data frame of size \eqn{n} observations/curves by \eqn{p} domain/evaluation points.}
 
 \item{type}{A character value. Can be one of \code{"two_sided"}, \code{"one_sided_left"} or \code{"one_sided_right"}.
-If \code{"two_sided"} is specified, small and large values in \code{dt} will be considered extreme. If \code{"one_sided_left"} is specified,
-then only small values in \code{dt} are considered to be extreme while for \code{"one_sided_right"}, only large values  in
-\code{dt} are considered to be extreme. \code{"two_sided"} is the default. See \code{Details} for more details.}
+If \code{"two_sided"} is specified, small and large values in \code{dts} will be considered extreme. If \code{"one_sided_left"} is specified,
+then only small values in \code{dts} are considered to be extreme while for \code{"one_sided_right"}, only large values  in
+\code{dts} are considered to be extreme. \code{"two_sided"} is the default. See \code{Details} for more details.}
 }
 \value{
 A numeric vector containing the depth of each curve
@@ -23,7 +23,8 @@ A numeric vector containing the depth of each curve
 \description{
 This function computes the extreme rank length depth (ERLD) of a sample of curves or functions.
 Functions have to be discretely observed on common domain points. In principle, the ERLD of a function \eqn{X_i}
-is the proportion of functions in the sample that is considered to be more extreme than \eqn{X_i}, an idea similar to \link{extremal_depth}.
+is the proportion of functions in the sample that is considered to be more extreme
+than \eqn{X_i}, an idea similar to \code{\link{extremal_depth}}.
 To determine which functions are more extreme, pointwise ranks of the functions are computed and compared pairwise.
 }
 \details{
@@ -34,12 +35,11 @@ case the pointwise ranks used are computed as \eqn{R_{ij} = n + 1 - r_{ij} } whe
 \eqn{i} at design point \eqn{j} and \eqn{n} is the number of functions in the sample. Third possibility is to consider both small and
 large values as extreme (when \code{type = "two_sided"}) in which case the pointwise ranks used is computed as
 \eqn{R_{ij} = min(r_ij, n + 1 - r_{ij})}. In the computation of the raw pointwise ranks \eqn{r_{ij}}, ties are broken using
-an average. See Dai et al. (2020)\href{https://doi.org/10.1016/j.csda.2020.106960}{<doi:10.1016/j.csda.2020.106960>} and
-Myllymäki et al. (2017) \href{https://doi.org/10.1111/rssb.12172}{<doi:10.1111/rssb.12172>} for more details.
+an average. See Dai et al. (2020) \doi{10.1016/j.csda.2020.106960} and Myllymäki et al. (2017) \doi{10.1111/rssb.12172} for more details.
 }
 \examples{
-data(sim_data1)
-erld <- extreme_rank_length(sim_data1$data)
+dt3 <- simulation_model3()
+erld <- extreme_rank_length(dt3$data)
 
 }
 \references{

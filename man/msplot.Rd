@@ -6,20 +6,27 @@
 data.}
 \usage{
 msplot(
-  data,
+  dts,
   data_depth = c("random_projections"),
   n_projections = 200,
   seed = NULL,
-  return_mvdir = TRUE
+  return_mvdir = TRUE,
+  plot = TRUE,
+  plot_title = "Magnitude Shape Plot",
+  title_cex = 1.5,
+  show_legend = T,
+  ylabel = "VO",
+  xlabel
 )
 }
 \arguments{
-\item{data}{A matrix/data frame for univariate functional data (of size \eqn{n} observations by \eqn{p} domain
-points) or a \eqn{3-}dimensional array for multivariate functional data (of size \eqn{n}
-observations by \eqn{p} domain points by \eqn{d} dimension).}
+\item{dts}{A matrix/data frame for univariate functional data (of size \eqn{n}
+observations by \eqn{p} domain points) or a \eqn{3-}dimensional array for
+multivariate functional data (of size \eqn{n} observations by \eqn{p}
+domain points by \eqn{d} dimension).}
 
 \item{data_depth}{The depth used in the computation of the directional outlyingness of
-\code{data}. The projection depth is always used. Support for other depth methods will be added.}
+\code{dts}. The projection depth is always used. Support for other depth methods will be added.}
 
 \item{n_projections}{The number of random directions to generate for computing the random projection
 depth. By default 200 directions are generated.}
@@ -27,10 +34,26 @@ depth. By default 200 directions are generated.}
 \item{seed}{An integer indicating the seed to set when generating random directions for computing the random projection depth.
 NULL by default in which case no seed is set.}
 
-\item{return_mvdir}{A logical scalar indicating whether to return the mean and variation of directional
+\item{return_mvdir}{A logical value indicating whether to return the mean and variation of directional
 outlyingness (\eqn{MO} and \eqn{VO}). For univariate functional data, \eqn{MO} and \eqn{VO} are vectors.
 For multivariate functional data, \eqn{VO} is a vector while \eqn{MO} is a matrix of size
  \eqn{n x d}.}
+
+\item{plot}{A logical indicating whether to make the msplot of \eqn{VO} against \eqn{MO}. In the case
+of multivariate functional data, a plot of  \eqn{VO} against \eqn{||MO||} is made.}
+
+\item{plot_title}{The title of the plot. Set to "Magnitude Shape Plot" by default. Ignored if
+\code{plot = FALSE}.}
+
+\item{title_cex}{Numerical value indicating the size of the plot title relative to the device default.
+Set to 1.5 by default. Ignored if \code{plot = FALSE}.}
+
+\item{show_legend}{A logical indicating whether to add legend to plot if \code{plot = TRUE}.}
+
+\item{ylabel}{The label of the y-axis. Set to "VO" by default.}
+
+\item{xlabel}{The label of the x-axis if \code{plot = TRUE}. If not specified (default), set to "MO"
+for univariate functional data and "||MO||" for multivariate functional data.}
 }
 \value{
 Returns a list containing:
@@ -46,26 +69,27 @@ Returns a list containing:
 }
 \description{
 This function finds outliers in univariate and multivariate functional data using the MS-Plot
-method described in Dai and Genton (2018)\href{https://doi.org/10.1080/10618600.2018.1473781}{<doi:10.1080/10618600.2018.1473781>}.
-Indices of observations flagged as outliers are returned. Despite the name, this function does not produce a plot.
-However, the mean and variation of directional outlyingness (\eqn{MO} and \eqn{VO}) can be requested and a subsequent
-plot of \eqn{MO} against \eqn{VO} can be easily generated using any preferred plotting tool.
+method described in Dai and Genton (2018) \doi{10.1080/10618600.2018.1473781}.
+Indices of observations flagged as outliers are returned. In addition, the
+scatter plot of \eqn{VO} against \eqn{MO} (||MO||) can be requested for univariate
+(multivariate) functional data.
 }
 \details{
 MS-Plot finds outliers by computing
 the mean and variation of directional outlyingness (\eqn{MO} and \eqn{VO}) described
-in Dai and Genton (2019)\href{https://doi.org/10.1016/j.csda.2018.03.017}{<doi:10.1016/j.csda.2018.03.017>}.
+in Dai and Genton (2019) \doi{10.1016/j.csda.2018.03.017}.
 A multivariate data whose columns are the computed \eqn{MO} and \eqn{VO} is then constructed and
 the robust mahalanobis distance(s) of the rows of this matrix are computed
 (using the minimum covariate determinant estimate of the location and scatter). The tail
 of the distribution of these distances is approximated using the \eqn{F} distribution
-according to Hardin and Rocke (2005)\href{https://doi.org/10.1198/106186005X77685}{<doi:10.1198/106186005X77685>} to get the cutoff. The projection depth is always used
-for computing the directional outlyingness (as suggested by Dai and Genton (2019)\href{https://doi.org/10.1016/j.csda.2018.03.017}{<doi:10.1016/j.csda.2018.03.017>}).
+according to Hardin and Rocke (2005) \doi{10.1198/106186005X77685} to get the cutoff.
+The projection depth is always used for computing the directional outlyingness
+(as suggested by Dai and Genton (2019) \doi{10.1016/j.csda.2018.03.017}).
 }
 \examples{
 # Univariate magnitude model in Dai and Genton (2018).
-data(sim_data1)
-msplot_object <- msplot(data = sim_data1$data)
+dt1 <- simulation_model1()
+msplot_object <- msplot(dts = dt1$data)
 msplot_object$outliers_index
 msplot_object$mean_outlyingness
 msplot_object$var_outlyingness
