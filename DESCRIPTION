@@ -1,6 +1,6 @@
 Package: fdaoutlier
 Title: Outlier Detection Tools for Functional Data Analysis
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     c(person(given = "Oluwasegun Taiwo",
            family = "Ojo",
@@ -30,17 +30,17 @@ BugReports: https://github.com/otsegun/fdaoutlier/issues
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat (>= 2.1.0), covr, spelling, knitr, rmarkdown
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Imports: MASS
 Depends: R (>= 2.10)
 Language: en-US
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2021-03-02 12:36:54 UTC; statimatician
+Packaged: 2023-09-29 13:42:51 UTC; segun
 Author: Oluwasegun Taiwo Ojo [aut, cre, cph]
     (<https://orcid.org/0000-0001-9629-6990>),
   Rosa Elvira Lillo [aut],
   Antonio Fernandez Anta [aut, fnd]
 Maintainer: Oluwasegun Taiwo Ojo <seguntaiwoojo@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-03-02 13:20:12 UTC
+Date/Publication: 2023-09-30 22:40:08 UTC

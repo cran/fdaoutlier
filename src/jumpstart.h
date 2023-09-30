@@ -1,10 +1,13 @@
 #pragma once
 
-#include <Rinternals.h>
+
 #include <vector>
 #include <algorithm>
 #include <numeric>
 #include <cmath>
+#define R_NO_REMAP 1
+#include <Rinternals.h>
+
 
 
 void customMedian(std::vector<double> &rowVector, double &median, const int len);

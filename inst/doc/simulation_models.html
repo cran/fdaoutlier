@@ -15,23 +15,44 @@
 
 <title>Simulation Models</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -43,55 +64,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -100,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -118,7 +145,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -135,155 +342,255 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fdaoutlier)</span></code></pre></div>
-<p>The following are simulation models included in the <code>fdaoutlier</code> package. Some of these models were curated from research work related to functional depths and outlier detection for functional data. This documents presents the model equations as well as their corresponding functions and parameters in <code>fdaoutlier</code>. The parameters of the <code>fdaoutlier</code> functions have been set to reasonable default values for ease of use.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(fdaoutlier)</span></code></pre></div>
+<p>The following are simulation models included in the
+<code>fdaoutlier</code> package. Some of these models were curated from
+research work related to functional depths and outlier detection for
+functional data. This documents presents the model equations as well as
+their corresponding functions and parameters in <code>fdaoutlier</code>.
+The parameters of the <code>fdaoutlier</code> functions have been set to
+reasonable default values for ease of use.</p>
 <div id="model-1" class="section level2">
 <h2>Model 1</h2>
-<p>This is a typical magnitude model in which outliers are shifted from the ‘normal’ non-outlying observations. The <strong>main model</strong> is of the form:</p>
-<p><span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> and the <strong>contamination model</strong> model is of the form:</p>
-<p><span class="math display">\[X_i(t) = \mu t + qk_i + e_i(t)\]</span> where:</p>
+<p>This is a typical magnitude model in which outliers are shifted from
+the ‘normal’ non-outlying observations. The <strong>main model</strong>
+is of the form:</p>
+<p><span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> and
+the <strong>contamination model</strong> model is of the form:</p>
+<p><span class="math display">\[X_i(t) = \mu t + qk_i + e_i(t)\]</span>
+where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
-<li><span class="math inline">\(k_i \in \{-1, 1\}\)</span> (usually with <span class="math inline">\(P(k_i = -1) = P(k_i=1) = 0.5\)</span>),</li>
-<li>and <span class="math inline">\(q\)</span> is a constant controlling how far the outliers are from the mean function of the data, usually, <span class="math inline">\(q = 6\)</span> or <span class="math inline">\(q = 8\)</span>.</li>
+<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
+<li><span class="math inline">\(k_i \in \{-1, 1\}\)</span> (usually with
+<span class="math inline">\(P(k_i = -1) = P(k_i=1) = 0.5\)</span>),</li>
+<li>and <span class="math inline">\(q\)</span> is a constant controlling
+how far the outliers are from the mean function of the data, usually,
+<span class="math inline">\(q = 6\)</span> or <span class="math inline">\(q = 8\)</span>.</li>
 </ul>
-<p>This model can be accessed with the <code>simulation_model1()</code> function in <code>fdaoutlier</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fdaoutlier)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model1</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>The returned object is a list containing a matrix of the data and a vector of the indices of the true outliers:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(dtss<span class="sc">$</span>data)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 100  50</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dtss<span class="sc">$</span>true_outliers</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 11 14 20 43 53 70 79 81 83 96</span></span></code></pre></div>
-<p>The simulated data can be tuned using additional parameters to <code>simulation_model1()</code>. The following parameters modify the data generated by <code>simulation_model1()</code>:</p>
+<p>This model can be accessed with the <code>simulation_model1()</code>
+function in <code>fdaoutlier</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(fdaoutlier)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model1</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>The returned object is a list containing a matrix of the data and a
+vector of the indices of the true outliers:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">dim</span>(dtss<span class="sc">$</span>data)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] 100  50</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>dtss<span class="sc">$</span>true_outliers</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [1] 11 14 20 43 53 70 79 81 83 96</span></span></code></pre></div>
+<p>The simulated data can be tuned using additional parameters to
+<code>simulation_model1()</code>. The following parameters modify the
+data generated by <code>simulation_model1()</code>:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which controls how far the outliers are from the mean function.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which
+controls how far the outliers are from the mean function.</li>
 <li><code>kprob</code>: the probability that <span class="math inline">\(k_i = 1\)</span>, i.e., <span class="math inline">\(P(k_i=1)\)</span> in the contamination model</li>
 <li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function.</li>
 </ul>
-<p>Additional plotting parameters allows for modifying the plot title (<code>plot_title</code>), the font size of the title (<code>title_cex</code>), toggle on/off the display of the legend (<code>show_legend</code>), y-axis label (<code>ylabel</code>) and x-axis label (<code>xlabel</code>).</p>
+<p>Additional plotting parameters allows for modifying the plot title
+(<code>plot_title</code>), the font size of the title
+(<code>title_cex</code>), toggle on/off the display of the legend
+(<code>show_legend</code>), y-axis label (<code>ylabel</code>) and
+x-axis label (<code>xlabel</code>).</p>
 </div>
 <div id="model-2" class="section level2">
 <h2>Model 2</h2>
-<p>This model generates non-persistent magnitude outliers, i.e., the outliers are magnitude outliers for only a portion of the domain of the functional data. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + qk_iI_{T_i \le t\le T_i+l } + e_i(t)\]</span> where:</p>
+<p>This model generates non-persistent magnitude outliers, i.e., the
+outliers are magnitude outliers for only a portion of the domain of the
+functional data. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + qk_iI_{T_i \le t\le T_i+l } +
+e_i(t)\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
+<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
 <li><span class="math inline">\(k_i \in \{-1, 1\}\)</span> with <span class="math inline">\(P(k_i = -1) = P(k_i=1) = 0.5\)</span>,</li>
-<li><span class="math inline">\(q\)</span> is a constant controlling how far the outliers are from the mass of the data,</li>
-<li><span class="math inline">\(I\)</span> is an indicator function,</li>
-<li><span class="math inline">\(T_i\)</span> is a uniform random variable between an interval <span class="math inline">\([a, b] \subset [0,1]\)</span>,</li>
-<li>and <span class="math inline">\(l\)</span> is a constant specifying for how much of the domain the outliers are away from the mean function.</li>
+<li><span class="math inline">\(q\)</span> is a constant controlling how
+far the outliers are from the mass of the data,</li>
+<li><span class="math inline">\(I\)</span> is an indicator
+function,</li>
+<li><span class="math inline">\(T_i\)</span> is a uniform random
+variable between an interval <span class="math inline">\([a, b] \subset
+[0,1]\)</span>,</li>
+<li>and <span class="math inline">\(l\)</span> is a constant specifying
+for how much of the domain the outliers are away from the mean
+function.</li>
 </ul>
-<p>A call to <code>simulation_model2()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model2</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model3()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model2()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model2</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model3()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which controls how far the outliers are from the mean function.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which
+controls how far the outliers are from the mean function.</li>
 <li><code>kprob</code>: the probability that <span class="math inline">\(k_i = 1\)</span>, i.e., <span class="math inline">\(P(k_i=1)\)</span> in the contamination model.</li>
-<li><code>a</code>, <code>b</code>: values specifying the interval <span class="math inline">\([a,b]\)</span> from which <span class="math inline">\(T_i\)</span> is drawn in the contamination model.</li>
-<li><code>l</code>: the value of <span class="math inline">\(l\)</span> in the contamination model.</li>
+<li><code>a</code>, <code>b</code>: values specifying the interval <span class="math inline">\([a,b]\)</span> from which <span class="math inline">\(T_i\)</span> is drawn in the contamination
+model.</li>
+<li><code>l</code>: the value of <span class="math inline">\(l\)</span>
+in the contamination model.</li>
 <li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-3" class="section level2">
 <h2>Model 3</h2>
-<p>This model generates outliers that are magnitude outliers for a part of the domain. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + qk_iI_{T_i \le t } + e_i(t)\]</span> where:</p>
+<p>This model generates outliers that are magnitude outliers for a part
+of the domain. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + qk_iI_{T_i \le t } +
+e_i(t)\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
+<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
 <li><span class="math inline">\(k_i \in \{-1, 1\}\)</span> with <span class="math inline">\(P(k_i = -1) = P(k_i=1) = 0.5\)</span>,</li>
-<li><span class="math inline">\(q\)</span> is a constant controlling how far the outliers are from the mass of the data,</li>
-<li><span class="math inline">\(I\)</span> is an indicator function,</li>
-<li>and <span class="math inline">\(T_i\)</span> is a uniform random variable between an interval <span class="math inline">\([a, b] \subset [0,1]\)</span>.</li>
+<li><span class="math inline">\(q\)</span> is a constant controlling how
+far the outliers are from the mass of the data,</li>
+<li><span class="math inline">\(I\)</span> is an indicator
+function,</li>
+<li>and <span class="math inline">\(T_i\)</span> is a uniform random
+variable between an interval <span class="math inline">\([a, b] \subset
+[0,1]\)</span>.</li>
 </ul>
-<p>A call to <code>simulation_model3()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model3</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model3()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model3()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model3</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model3()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which controls how far the outliers are from the mean function.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>q</code>: the shift parameter <span class="math inline">\(q\)</span> in the contamination model which
+controls how far the outliers are from the mean function.</li>
 <li><code>kprob</code>: the probability that <span class="math inline">\(k_i = 1\)</span>, i.e., <span class="math inline">\(P(k_i=1)\)</span> in the contamination model.</li>
-<li><code>a</code>, <code>b</code>: values specifying the interval <span class="math inline">\([a,b]\)</span> from which <span class="math inline">\(T_i\)</span> is drawn in the contamination model.</li>
+<li><code>a</code>, <code>b</code>: values specifying the interval <span class="math inline">\([a,b]\)</span> from which <span class="math inline">\(T_i\)</span> is drawn in the contamination
+model.</li>
 <li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-4" class="section level2">
 <h2>Model 4</h2>
-<p>This models generates outliers defined on the reversed interval of the main model. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t(1 - t)^m + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu(1 - t)t^m + e_i(t)\]</span> where:</p>
+<p>This models generates outliers defined on the reversed interval of
+the main model. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t(1 - t)^m + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu(1 - t)t^m + e_i(t)\]</span>
+where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
+<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
 <li>and <span class="math inline">\(m\)</span> is a constant.</li>
 </ul>
-<p>A call to <code>simulation_model4()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model4</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model4()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model4()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model4</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model4()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>m</code>: the constant <span class="math inline">\(m\)</span> in the main and contamination models.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>m</code>: the constant <span class="math inline">\(m\)</span>
+in the main and contamination models.</li>
 <li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-5" class="section level2">
 <h2>Model 5</h2>
-<p>This models generates shape outliers with a different covariance structure from that of the main model. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + \tilde{e}_i(t),\]</span> where:</p>
+<p>This models generates shape outliers with a different covariance
+structure from that of the main model. The <strong>main model</strong>
+is of the form: <span class="math display">\[X_i(t) = \mu t +
+e_i(t),\]</span> with <strong>contamination model</strong> of the form:
+<span class="math display">\[X_i(t) = \mu t + \tilde{e}_i(t),\]</span>
+where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li>and <span class="math inline">\(e_i(t)\)</span> and <span class="math inline">\(\tilde{e}_i(t)\)</span> are Gaussian processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
+<li>and <span class="math inline">\(e_i(t)\)</span> and <span class="math inline">\(\tilde{e}_i(t)\)</span> are Gaussian processes
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
 </ul>
-<p>A call to <code>simulation_model5()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model5</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model5()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model5()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model5</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model5()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of
+<span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
-<li><code>cov_alpha2</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of <span class="math inline">\(\tilde{e}_i(t)\)</span>.</li>
+<li><code>cov_alpha2</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of
+<span class="math inline">\(\tilde{e}_i(t)\)</span>.</li>
 <li><code>cov_beta2</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function of <span class="math inline">\(\tilde{e}_i(t)\)</span>.</li>
 <li><code>cov_nu2</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function of <span class="math inline">\(\tilde{e}_i(t)\)</span>.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-6" class="section level2">
 <h2>Model 6</h2>
-<p>This models generates shape outliers that have a different shape for a portion of the domain. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + (-1)^u\cdot q + (-1)^{(1-u)}\left(\frac{1}{\sqrt{r\pi}}\right)\exp{(-z(t-v)^w)} + e_i(t)\]</span> where:</p>
+<p>This models generates shape outliers that have a different shape for
+a portion of the domain. The <strong>main model</strong> is of the form:
+<span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + (-1)^u\cdot q +
+(-1)^{(1-u)}\left(\frac{1}{\sqrt{r\pi}}\right)\exp{(-z(t-v)^w)} +
+e_i(t)\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
-<li><span class="math inline">\(u\)</span> follows Bernoulli distribution with probability <span class="math inline">\(P(u = 1) = 0.5\)</span>,</li>
-<li><span class="math inline">\(q\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(z\)</span> and <span class="math inline">\(w\)</span> are constants,</li>
-<li><span class="math inline">\(v\)</span> follows a Uniform distribution between an interval <span class="math inline">\([a, b]\)</span>.</li>
+<li><span class="math inline">\(e_i(t)\)</span> is a Gaussian process
+with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\},\]</span></li>
+<li><span class="math inline">\(u\)</span> follows Bernoulli
+distribution with probability <span class="math inline">\(P(u = 1) =
+0.5\)</span>,</li>
+<li><span class="math inline">\(q\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(z\)</span>
+and <span class="math inline">\(w\)</span> are constants,</li>
+<li><span class="math inline">\(v\)</span> follows a Uniform
+distribution between an interval <span class="math inline">\([a,
+b]\)</span>.</li>
 </ul>
-<p>A call to <code>simulation_model6()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model6</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model6()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model6()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model6</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model6()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
 <li><code>q</code>: the constant term <span class="math inline">\(q\)</span> in the contamination model.</li>
-<li><code>kprob</code>: the probability <span class="math inline">\(P(u = 1)\)</span></li>
-<li><code>a</code>, <code>b</code>: values specifying the interval of from which <span class="math inline">\(v\)</span> in the contamination model is drawn.</li>
+<li><code>kprob</code>: the probability <span class="math inline">\(P(u
+= 1)\)</span></li>
+<li><code>a</code>, <code>b</code>: values specifying the interval of
+from which <span class="math inline">\(v\)</span> in the contamination
+model is drawn.</li>
 <li><code>pi_coeff</code>: the constant <span class="math inline">\(r\)</span> in the contamination model.</li>
 <li><code>exp_pow</code>: the constant <span class="math inline">\(w\)</span> in the contamination model.</li>
 <li><code>exp_coeff</code>: the constant <span class="math inline">\(z\)</span> in the contamination model.</li>
@@ -291,81 +598,126 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-7" class="section level2">
 <h2>Model 7</h2>
-<p>This model generates pure shape outliers that are periodic. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + k\sin(r\pi(t + \theta)) + e_i(t),\]</span> where:</p>
+<p>This model generates pure shape outliers that are periodic. The
+<strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = \mu t + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = \mu t + k\sin(r\pi(t + \theta)) +
+e_i(t),\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
-<li><span class="math inline">\(\theta\)</span> is uniformly distributed in an interval <span class="math inline">\([a, b]\)</span>.</li>
+<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian
+processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
+<li><span class="math inline">\(\theta\)</span> is uniformly distributed
+in an interval <span class="math inline">\([a, b]\)</span>.</li>
 <li><span class="math inline">\(k\)</span>, <span class="math inline">\(r\)</span> are constants</li>
 </ul>
-<p>A call to <code>simulation_model7()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model7</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model7()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model7()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model7</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model7()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models controlling the mean function.</li>
-<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
+<li><code>mu</code>: the coefficient <span class="math inline">\(\mu\)</span> in the main and contamination models
+controlling the mean function.</li>
+<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of
+<span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>sin_coeff</code>: the coefficient <span class="math inline">\(k\)</span> in the contamination model.</li>
 <li><code>pi_coeff</code>: the coefficient <span class="math inline">\(r\)</span> in the contamination model.</li>
-<li><code>a</code>, <code>b</code>: values specifying the interval of from which <span class="math inline">\(\theta\)</span> is to be drawn.</li>
+<li><code>a</code>, <code>b</code>: values specifying the interval of
+from which <span class="math inline">\(\theta\)</span> is to be
+drawn.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-8" class="section level2">
 <h2>Model 8</h2>
-<p>This model generates pure shape outliers that are periodic. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = k\sin(r\pi t) + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = k\sin(r\pi t + v) + e_i(t),\]</span> where:</p>
+<p>This model generates pure shape outliers that are periodic. The
+<strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = k\sin(r\pi t) + e_i(t),\]</span> with
+<strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = k\sin(r\pi t + v) + e_i(t),\]</span>
+where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
-<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
-<li><span class="math inline">\(k\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(v\)</span> are constants</li>
+<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian
+processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
+<li><span class="math inline">\(k\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(v\)</span>
+are constants</li>
 </ul>
-<p>A call to <code>simulation_model8()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model8</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model7()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model8()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model8</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model7()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
+<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of
+<span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
-<li><code>sin_coeff</code>: the coefficient <span class="math inline">\(k\)</span> in the main and contamination model.</li>
-<li><code>pi_coeff</code>: the coefficient <span class="math inline">\(r\)</span> in the main and contamination model.</li>
+<li><code>sin_coeff</code>: the coefficient <span class="math inline">\(k\)</span> in the main and contamination
+model.</li>
+<li><code>pi_coeff</code>: the coefficient <span class="math inline">\(r\)</span> in the main and contamination
+model.</li>
 <li><code>constant</code>: the value of the constant <span class="math inline">\(v\)</span> in the contamination model.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 <div id="model-9" class="section level2">
 <h2>Model 9</h2>
-<p>Periodic functions with outliers of different amplitude. The <strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = a_{1i}\sin \pi + a_{2i}\cos\pi + e_i(t),\]</span> with <strong>contamination model</strong> of the form: <span class="math display">\[X_i(t) = (b_{1i}\sin\pi + b_{2i}\cos\pi)(1-u_i) + (c_{1i}\sin\pi + c_{2i}\cos\pi)u_i + e_i(t),\]</span> where:</p>
+<p>Periodic functions with outliers of different amplitude. The
+<strong>main model</strong> is of the form: <span class="math display">\[X_i(t) = a_{1i}\sin \pi + a_{2i}\cos\pi +
+e_i(t),\]</span> with <strong>contamination model</strong> of the form:
+<span class="math display">\[X_i(t) = (b_{1i}\sin\pi +
+b_{2i}\cos\pi)(1-u_i) + (c_{1i}\sin\pi + c_{2i}\cos\pi)u_i +
+e_i(t),\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(t\in [0,1]\)</span>,</li>
 <li><span class="math inline">\(\pi \in [0, 2\pi]\)</span></li>
-<li><span class="math inline">\(a_{1i}\)</span>, <span class="math inline">\(a_{2i}\)</span> follows uniform distribution in an interval <span class="math inline">\([a_1, a_2]\)</span></li>
-<li><span class="math inline">\(b_{1i}\)</span>, <span class="math inline">\(b_{2i}\)</span> follows uniform distribution in an interval <span class="math inline">\([b_1, b_2]\)</span></li>
-<li><span class="math inline">\(c_{1i}\)</span>, <span class="math inline">\(c_{2i}\)</span> follows uniform distribution in an interval <span class="math inline">\([c_1, c_2]\)</span></li>
-<li><span class="math inline">\(u_i\)</span> follows Bernoulli distribution</li>
-<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) = \alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
+<li><span class="math inline">\(a_{1i}\)</span>, <span class="math inline">\(a_{2i}\)</span> follows uniform distribution in an
+interval <span class="math inline">\([a_1, a_2]\)</span></li>
+<li><span class="math inline">\(b_{1i}\)</span>, <span class="math inline">\(b_{2i}\)</span> follows uniform distribution in an
+interval <span class="math inline">\([b_1, b_2]\)</span></li>
+<li><span class="math inline">\(c_{1i}\)</span>, <span class="math inline">\(c_{2i}\)</span> follows uniform distribution in an
+interval <span class="math inline">\([c_1, c_2]\)</span></li>
+<li><span class="math inline">\(u_i\)</span> follows Bernoulli
+distribution</li>
+<li>and <span class="math inline">\(e_i(t)\)</span> is a Gaussian
+processes with zero mean and covariance function of the form: <span class="math display">\[\gamma(s,t) =
+\alpha\exp\{-\beta|t-s|^\nu\}\]</span></li>
 </ul>
-<p>A call to <code>simulation_model9()</code> generates data from this model:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model9</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
-<p>Additional parameters of <code>simulation_model9()</code> to which arguments can be passed are:</p>
+<p>A call to <code>simulation_model9()</code> generates data from this
+model:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>dtss <span class="ot">&lt;-</span> <span class="fu">simulation_model9</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">p =</span> <span class="dv">50</span>, <span class="at">outlier_rate =</span> .<span class="dv">1</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                          <span class="at">seed =</span> <span class="dv">50</span>, <span class="at">plot =</span> F)</span></code></pre></div>
+<p>Additional parameters of <code>simulation_model9()</code> to which
+arguments can be passed are:</p>
 <ul>
-<li><code>kprob</code> the probability <span class="math inline">\(P(u_i = 1)\)</span></li>
-<li><code>ai</code> a vector of 2 values containing <span class="math inline">\(a_{1}\)</span> and <span class="math inline">\(a_{2}\)</span> indicating the interval from which <span class="math inline">\(a_{1i}\)</span> and <span class="math inline">\(a_{2i}\)</span> are drawn in the main model.<br />
+<li><code>kprob</code> the probability <span class="math inline">\(P(u_i
+= 1)\)</span></li>
+<li><code>ai</code> a vector of 2 values containing <span class="math inline">\(a_{1}\)</span> and <span class="math inline">\(a_{2}\)</span> indicating the interval from which
+<span class="math inline">\(a_{1i}\)</span> and <span class="math inline">\(a_{2i}\)</span> are drawn in the main model.<br />
 </li>
-<li><code>bi</code> a vector of 2 values containing <span class="math inline">\(b_{1}\)</span> and <span class="math inline">\(b_{2}\)</span> indicating the interval from which <span class="math inline">\(a_{1i}\)</span> and <span class="math inline">\(a_{2i}\)</span> are drawn in the main model.</li>
-<li><code>ci</code> a vector of 2 values containing <span class="math inline">\(c_{1}\)</span> and <span class="math inline">\(c_{2}\)</span> indicating the interval from which <span class="math inline">\(c_{1i}\)</span> and <span class="math inline">\(c_{2i}\)</span> are drawn in the main model.</li>
-<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
+<li><code>bi</code> a vector of 2 values containing <span class="math inline">\(b_{1}\)</span> and <span class="math inline">\(b_{2}\)</span> indicating the interval from which
+<span class="math inline">\(a_{1i}\)</span> and <span class="math inline">\(a_{2i}\)</span> are drawn in the main model.</li>
+<li><code>ci</code> a vector of 2 values containing <span class="math inline">\(c_{1}\)</span> and <span class="math inline">\(c_{2}\)</span> indicating the interval from which
+<span class="math inline">\(c_{1i}\)</span> and <span class="math inline">\(c_{2i}\)</span> are drawn in the main model.</li>
+<li><code>cov_alpha</code>: the coefficient <span class="math inline">\(\alpha\)</span> in the covariance function of
+<span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_beta</code>: the coefficient <span class="math inline">\(\beta\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 <li><code>cov_nu</code>: the coefficient <span class="math inline">\(\nu\)</span> in the covariance function of <span class="math inline">\(e_i(t)\)</span>.</li>
 </ul>
-<p>Additional plotting parameters listed for <code>simulation_model1()</code> also applies.</p>
+<p>Additional plotting parameters listed for
+<code>simulation_model1()</code> also applies.</p>
 </div>
 
 
